@@ -1,0 +1,23 @@
+org: marcelobbff
+app: express-pokedex
+service: pokedex-express
+frameworkVersion: '3'
+configValidationMode: error
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  stage: ${opt:stage, 'dev'}
+  region: ${opt:region, 'us-east-1'}
+  
+plugins:
+  - serverless-plugin-typescript
+  - serverless-offline
+
+functions:
+  api:
+    handler: "src/index.handler"
+    events:
+      - httpApi: '*'
+      # - http: ANY /
+      # - http: "ANY {proxy+}"
